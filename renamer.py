@@ -5,7 +5,8 @@ LINE = ('-' * 80)
 def main():
     # names = load_names()
     # create_files('names')
-    list_of_files = get_list_of_files()
+    original_list_of_files = get_list_of_files()
+    list_of_files = original_list_of_files
     show_names(list_of_files)
     extension = input('Wybierz rozszerzenie plików do edycji : ')
     # remove_from_list(list_of_files, [0, 10, 11, 12, 13])
