@@ -1,13 +1,17 @@
 import os
 
+LINE = ('-' * 80)
+
 def main():
     # names = load_names()
     # create_files('names')
     list_of_files = get_list_of_files()
     show_names(list_of_files)
-    remove_from_list(list_of_files, [9, 10, 11])
+    extension = input('Wybierz rozszerzenie plików do edycji : ')
+    # remove_from_list(list_of_files, [0, 10, 11, 12, 13])
     # os.system('export TERM=xterm-256color')
     # os.system('clear')
+    list_of_files = pick_file_extension(list_of_files, extension)
     show_names(list_of_files)
 
     # new_names = remove_word(names, '_xvid')
@@ -58,6 +62,11 @@ def get_list_of_files(my_path: str = os.getcwd()) -> [str]:
 
 def show_names(name_list: [str]) -> None:
     """Shows numbered list of names"""
+    print(LINE)
+    if len(name_list) == 0:
+        print('BRAK')
+        return None
+
     for n in range(len(name_list)):
         print(f'{n + 1}.\t{name_list[n]}')
 
@@ -66,9 +75,7 @@ def remove_from_list(name_list: [str], num_arr: [int]) -> None:
 
 
     if num_arr is None:
-        print('-' * 80)
         show_names(name_list)
-        print('-' * 80)
         numbers = input('Podaj numery nazw do usunięcia z listy: ')
         numbers = numbers.split(', ')
         num_arr = [int(n) - 1 for n in numbers if n.isnumeric()]
@@ -83,6 +90,15 @@ def remove_word(old_names: [str], word:str) -> [str]:
     for index in range(len(old_names)):
         new_names.append(old_names[index].replace(word, ''))
     return new_names
+
+def pick_file_extension(files_list: [str], extension: str) -> []:
+    """Returns a **list** from *files_list* only with *extensions*"""
+    new_list = [n for n in files_list if n.endswith(extension)]
+    show_names(new_list)
+    choice = input('Zatwierdzić listę? [t/N]: ')
+    if choice.lower() == 't':
+        return new_list
+    return files_list
 
 def in_string_after_add(string: str, after_word: str, add_word: str) -> str:
     """Adds add_word after after_word in given old_name and returns a string"""
